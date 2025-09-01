@@ -5,7 +5,7 @@ require 'json'
 
 BASE_URL = "https://na.finalfantasyxiv.com/jobguide/"
 
-def scrape_job_actions(class_name)
+def scrape_job_actions(class_name, armor_type, class_type)
   url = "#{BASE_URL}#{class_name}/"
   html = URI.open(url).read
   doc = Nokogiri::HTML(html)
@@ -29,7 +29,7 @@ def scrape_job_actions(class_name)
     end
 
     action = {
-      action_name:     cols[0],
+      action_name:     cols[0].gsub(/\s+/, " ").gsub("Class Quest", "").gsub("Job Quest", "").gsub("Prerequisite Quest", "").strip,
       level_acquired:  cols[1],
       type_of_action:  cols[2],
       cast:            cols[3],
@@ -38,7 +38,9 @@ def scrape_job_actions(class_name)
       radius:          cols[6].gsub(/\s+/, " "),
       effect:          cols[7] || nil,
       class_name:      class_name,
-      image:           img_src
+      image_url:       img_src,
+      armor_type:      armor_type,
+      class_type:      class_type
 
     }
 
@@ -54,9 +56,9 @@ def scrape_job_actions(class_name)
 end
 
 if __FILE__ == $0
-  data = scrape_job_actions("darkknight")
+  data = scrape_job_actions("dragoon", "maiming", "melee")
   old_stdout = $stdout
-  File.open("darkknight_skills.json", 'w') do |fo|
+  File.open("dragoon_skills.rb", 'w') do |fo|
   $stdout = fo
 
   # ----

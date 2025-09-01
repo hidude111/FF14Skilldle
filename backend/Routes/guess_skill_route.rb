@@ -18,12 +18,17 @@ post '/guess_skill' do
   if !skill_exists?(user_guess) && user_guess.strip.downcase != answer.strip.downcase
     hints = build_hints(skill, session[:guesses])
     form = <<-HTML
+      <body style="background-color: #403075;">
       <h2>Error: That skill does not exist!</h2>
       <p>Your guess: #{user_guess}</p>
       <form action="/guess_skill" method="post">
         <input type="text" name="guess" placeholder="Enter skill name" required>
         <button type="submit">Guess</button>
       </form>
+      <p>Hints so far:</p>
+      #{build_hint_html(hints)}
+      <p>Guesses left: #{4-session[:guesses]}</p>
+    </body>
     HTML
     return form
   else
@@ -37,17 +42,18 @@ post '/guess_skill' do
     session[:guesses] = 0
     session[:skill] = nil
     session[:answer] = nil
-    "<h2>Correct!</h2><p>You guessed: #{user_guess}</p>"
-  elsif session[:guesses] >= 5
+    "<body style=\"background-color: #403075;\"><h2>Correct!</h2><p>You guessed: #{user_guess}</p></body>"
+  elsif session[:guesses] >= 4
     session[:guesses] = 0
     session[:skill] = nil
     session[:answer] = nil
-    "<h2>Out of guesses!</h2><p>Your guess: #{user_guess}<br>Correct answer: #{answer}</p>#{build_hint_html(hints)}"
+    "<body style=\"background-color: #403075;\"><h2>Out of guesses!</h2><p>Your guess: #{user_guess}<br>Correct answer: #{answer}</p>#{build_hint_html(hints)}</body>"
   else
 
     #feedback_html = feedback_to_html(user_guess, answer) if user_guess
 
     form = <<-HTML
+    <body style="background-color: #403075;">
       <h2>Incorrect! Try again.</h2>
       <p>Your guess: #{user_guess}</p>
       <form action="/guess_skill" method="post">
@@ -56,11 +62,12 @@ post '/guess_skill' do
       </form>
       <p>Hints so far:</p>
       #{build_hint_html(hints)}
-      <p>Guesses left: #{5-session[:guesses]}</p>
+      <p>Guesses left: #{4-session[:guesses]}</p>
       <h2>Previous Guesses:</h2>
       <ul>
         #{user_previous_guesses}
       </ul>
+    </body>
     HTML
     form
   end

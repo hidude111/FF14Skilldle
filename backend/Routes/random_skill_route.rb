@@ -12,6 +12,7 @@ get '/random_skill' do
     session[:skill] = skill
     hints = build_hints(skill, session[:guesses])
     form = <<-HTML
+    <body style="background-color: #403075;">
       <h2>Guess the Skill!</h2>
       <form action="/guess_skill" method="post">
         <input type="text" name="guess" placeholder="Enter skill name" required>
@@ -19,7 +20,8 @@ get '/random_skill' do
       </form>
       <p>Hints so far:</p>
       #{build_hint_html(hints)}
-      <p>Guesses left: #{5-session[:guesses]}</p>
+      <p>Guesses left: #{4-session[:guesses]}</p>
+    </body>
     HTML
     form
   else
