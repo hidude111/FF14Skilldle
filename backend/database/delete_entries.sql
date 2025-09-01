@@ -1,0 +1,1 @@
+DELETE FROM ff14skill_attributes;
