@@ -11,9 +11,7 @@ post '/guess_skill' do
   answer = session[:answer]
   skill = session[:skill]
   session[:guesses] ||= 0
-  session[:previous_guesses] ||= []
 
-  result = {}
 
   if !skill_exists?(user_guess) && user_guess.strip.downcase != answer.strip.downcase
     hints = build_hints(skill, session[:guesses])

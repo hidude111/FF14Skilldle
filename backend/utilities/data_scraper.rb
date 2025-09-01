@@ -36,7 +36,7 @@ def scrape_job_actions(class_name, armor_type, class_type)
       recast:          cols[4],
       mp_cost:         cols[5],
       radius:          cols[6].gsub(/\s+/, " "),
-      effect:          cols[7] || nil,
+      effect:          cols[7].gsub(/(\.)(\w)/, '\1 \2').gsub(/([a-z])([A-Z])/, '\1 \2').gsub(/(\d)([A-Za-z])/, '\1 \2').gsub(/([%:])([A-Za-z])/, '\1 \2'),
       class_name:      class_name,
       image_url:       img_src,
       armor_type:      armor_type,
