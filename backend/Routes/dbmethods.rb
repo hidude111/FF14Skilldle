@@ -42,6 +42,11 @@ end
     conn.close
   end
 
+  def get_all_entries()
+    conn = db_connection
+    result = conn.exec_params("SELECT * FROM ff14skill_attributes")
+    conn.close
+  end
   
 def previous_guess(user_guess, session)
   session[:previous_guesses] ||= []  

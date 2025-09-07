@@ -13,6 +13,13 @@
     hints
   end
 
-  def build_hint_html(hints)
-    "<ul>" + hints.map { |h| "<li>#{h} <br></li>" }.join + "</ul>"
+  def build_hint_response(hints)
+    response = 
+    {
+      hints: hints
+    }
+    content_type :json
+    response.to_json
+    #"<ul>" + hints.map { |h| "<li>#{h} <br></li>" }.join + "</ul>"
+    response
   end

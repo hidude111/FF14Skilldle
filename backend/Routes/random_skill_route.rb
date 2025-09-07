@@ -22,7 +22,7 @@ get '/random_skill' do
   else
     response = 
     {
-      status: "notfound",
+      status: "error",
       message: "No skills found."
     }
     content_type :json

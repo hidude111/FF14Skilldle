@@ -56,7 +56,7 @@ def scrape_job_actions(class_name, armor_type, class_type)
 end
 
 if __FILE__ == $0
-  name = "ninja"
+  name = "viper"
   data = scrape_job_actions(name, "scouting", "melee")
   old_stdout = $stdout
   File.open("#{name}_skills.rb", 'w') do |fo|
