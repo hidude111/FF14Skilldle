@@ -1,30 +1,31 @@
 require 'sinatra'
-require_relative './helpers'
-include SkillHelpers
+require_relative './dbmethods'
+include DBMethods
 
 enable :sessions
 
 get '/random_skill' do
+  response = {}
   skill = get_random_skill
   if skill
-    session[:answer] = skill['action_name']
     session[:guesses] = 0
-    session[:skill] = skill
     hints = build_hints(skill, session[:guesses])
-    form = <<-HTML
-    <body style="background-color: #403075;">
-      <h2>Guess the Skill!</h2>
-      <form action="/guess_skill" method="post">
-        <input type="text" name="guess" placeholder="Enter skill name" required>
-        <button type="submit">Guess</button>
-      </form>
-      <p>Hints so far:</p>
-      #{build_hint_html(hints)}
-      <p>Guesses left: #{4-session[:guesses]}</p>
-    </body>
-    HTML
-    form
+    response = 
+    {
+      status: "start",
+      title: "Guess the Skill!",
+      hints: hints,
+      guesses_left: 4 - session[:guesses]
+    }
+    content_type :json
+    return response.to_json
   else
-    "No skills found."
+    response = 
+    {
+      status: "notfound",
+      message: "No skills found."
+    }
+    content_type :json
+    return response.to_json
   end
 end

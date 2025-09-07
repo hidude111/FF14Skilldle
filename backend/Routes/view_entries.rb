@@ -1,4 +1,4 @@
-require_relative './helpers'
+require_relative './dbmethods'
 
 get '/view_entries' do
   conn = db_connection
@@ -14,8 +14,17 @@ get '/view_entries' do
       mp_cost: row['mp_cost'],
       radius: row['radius'],
       effect: row['effect'],
-      image_url: row['image_url']
+      image_url: row['image_url'],
+      armor_type: row['armor_type'],
+      class_type: row['class_type']
     }
   end
-  "<ul>" + entries.map { |h| "<li>#{h}</li>" }.join + "</ul>"
+  #"<ul>" + entries.map { |h| "<li>#{h}</li>" }.join + "</ul>"
+      response = {
+      status: "list",
+      message: "View current entries of database",
+      entries: entries
+    }
+    content_type :json
+    return response.to_json
 end

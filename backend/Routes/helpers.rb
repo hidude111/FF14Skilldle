@@ -3,9 +3,17 @@ require 'pg'
 enable :sessions
 
 module SkillHelpers
-  def db_connection
-    PG.connect(dbname: 'ff14skills', user: 'hidude111', password: '123qwe', host: 'localhost')
-  end
+def db_connection
+  PG.connect(
+    dbname:   'ff14skills',
+    user:     'neondb_owner',
+    password: 'npg_hin54oySzNeJ',
+    host:     'ep-twilight-frog-adaoukwz-pooler.c-2.us-east-1.aws.neon.tech',
+    port:     5432,
+    sslmode:  'require'
+  )
+end
+
 
   def get_random_skill
     conn = db_connection
@@ -32,7 +40,7 @@ module SkillHelpers
 def previous_guess(user_guess, session)
   session[:previous_guesses] ||= []  
   session[:previous_guesses] << user_guess
-  session[:previous_guesses].map { |entry| "<li>#{entry}</li>" }.join
+  session[:previous_guesses]
 end
 
   def feedback_to_html(user_guess, answer_skill)
