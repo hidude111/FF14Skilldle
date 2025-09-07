@@ -1,8 +1,8 @@
 require 'pg'
-
+require 'sinatra'
 enable :sessions
 
-module SkillHelpers
+module DBMethods
 def db_connection
   PG.connect(
     dbname:   'ff14skills',
@@ -23,7 +23,7 @@ end
     skill
   end
 
-    def get_skill_by_name(name)
+  def get_skill_by_name(name)
     conn = db_connection
     result = conn.exec_params("SELECT * FROM ff14skill_attributes WHERE LOWER(action_name) = LOWER($1)", [name])
     result.ntuples.zero? ? nil : result[0]
@@ -36,6 +36,12 @@ end
     check_result.ntuples > 0
   end
 
+  def select_skill_by_class(class_name)
+    conn = db_connection
+    result = conn.exec_params("SELECT * FROM ff14skill_attributes WHERE LOWER(class_name) = '#{class_name}'")
+    conn.close
+  end
+
   
 def previous_guess(user_guess, session)
   session[:previous_guesses] ||= []  
@@ -43,6 +49,8 @@ def previous_guess(user_guess, session)
   session[:previous_guesses]
 end
 
+
+#currently not in use. 
   def feedback_to_html(user_guess, answer_skill)
     checks = []
     [:type_of_action, :level_acquired, :cast, :recast, :radius, :effect, :class_name, :mp_cost].each do |attr|

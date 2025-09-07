@@ -1,9 +1,10 @@
 require 'pg'
-require_relative './samurai_skills'
-
+require_relative '../Routes/dbmethods'
+require_relative './ninja_skills.rb'
+include SkillHelpers
 
 def insert_skills(skills)
-  conn = PG.connect(dbname: 'ff14skills', user: 'hidude111', password: '123qwe', host: 'localhost')
+  conn = db_connection
   skills.each do |skill|
     conn.exec_params(
       "INSERT INTO ff14skill_attributes (action_name, level_acquired, type_of_action, \"cast\", recast, mp_cost, radius, effect, class_name, image_url, armor_type, class_type) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)",
@@ -17,3 +18,4 @@ insert_skills($skills)
 
 #dragoon skills have been inserted
 #drk skills have been inserted
+#sam skills have been inserted

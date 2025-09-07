@@ -1,6 +1,6 @@
 require 'sinatra'
-require_relative './helpers'
-include SkillHelpers
+require_relative './dbmethods'
+include DBMethods
 
 enable :sessions
 
