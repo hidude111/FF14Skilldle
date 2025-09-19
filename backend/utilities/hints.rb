@@ -9,7 +9,7 @@
     hints << "Armor Type: #{skill['armor_type']}" if guesses >= 1
     hints << "Class: #{skill['class_name']}" if guesses >= 2
     hints << "Effect: #{skill['effect'].split('.').map(&:strip).join('. ')}" if guesses >= 2
-    hints << "Image: <img src='#{skill['image_url']}' alt='#{skill['action_name']}'> " if guesses >= 3
+    hints << "Image: <img src='#{skill['image_url']}' alt='#{skill['action_name']}'> " if guesses >= 2
     hints
   end
 

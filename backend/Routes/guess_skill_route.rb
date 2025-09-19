@@ -4,8 +4,6 @@ require_relative './dbmethods'
 require_relative '../utilities/hints'
 
 include DBMethods
-
-
 post '/guess_skill' do
   user_guess = params['guess']&.strip
   answer     = session[:answer]

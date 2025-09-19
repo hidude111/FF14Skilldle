@@ -1,7 +1,5 @@
-require 'sinatra'
 require_relative './random_skill_route'
 require_relative './guess_skill_route'
 require_relative './suggest_skill_route'
 require_relative './view_entries'
 require_relative './get_answer'
-include DBMethods
