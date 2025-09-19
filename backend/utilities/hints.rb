@@ -20,6 +20,5 @@
     }
     content_type :json
     response.to_json
-    #"<ul>" + hints.map { |h| "<li>#{h} <br></li>" }.join + "</ul>"
     response
   end

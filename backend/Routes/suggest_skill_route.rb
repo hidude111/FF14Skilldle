@@ -2,7 +2,6 @@ require 'sinatra'
 require_relative './dbmethods'
 include DBMethods
 
-enable :sessions
 
 get '/suggest_skill' do
   query = params['q']&.strip&.downcase || ''

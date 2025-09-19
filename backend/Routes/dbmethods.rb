@@ -48,9 +48,9 @@ end
     conn.close
   end
   
-def previous_guess(user_guess, session)
+def previous_guess(user_guess)
   session[:previous_guesses] ||= []  
-  session[:previous_guesses] << user_guess
+  session[:previous_guesses] << { guess: user_guess, attempt: session[:guesses]}
   session[:previous_guesses]
 end
 

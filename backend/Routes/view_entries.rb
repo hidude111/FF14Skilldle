@@ -23,7 +23,7 @@ get '/view_entries' do
       response = {
       status: "list",
       message: "View current entries of database",
-      entries: entries
+      entries: [entries]
     }
     content_type :json
     return response.to_json
