@@ -5,6 +5,7 @@ gem 'nokogiri'
 gem 'open-uri'
 gem 'httparty'
 gem 'json'
-
+gem "rspec"
+gem "rack-test"
 gem "rackup", "~> 2.2"
 gem "puma", "~> 6.6"

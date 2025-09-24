@@ -14,7 +14,6 @@ get '/random_skill' do
 
 
     hints = build_hints(skill, session[:guesses])
-
     {
       status: "start",
       title: "Guess the Skill!",
