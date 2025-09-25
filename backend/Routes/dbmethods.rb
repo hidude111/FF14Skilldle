@@ -47,6 +47,16 @@ end
     result = conn.exec_params("SELECT * FROM ff14skill_attributes")
     conn.close
   end
+
+def search_skills(query)
+  conn = db_connection
+  result = conn.exec_params("SELECT action_name FROM ff14skill_attributes WHERE LOWER(action_name) LIKE LOWER($1) LIMIT 10", ["%#{query}%"])
+  suggestions = result.map { |row| row['action_name'] } 
+  conn.close
+  suggestions
+end
+
+
   
 def previous_guess(user_guess)
   session[:previous_guesses] ||= []  

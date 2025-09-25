@@ -20,10 +20,10 @@ RSpec.describe "POST /guess_skill" do
       "cast_time"     => "Instant",
       "recast"        => "2.5s",
       "radius"        => "3y",
-      "class_name"    => "ninja",
+      "class_name"    => "test",
       "image_url"     => "https://example.com/test.png",
-      "armor_type"    => "scouting",
-      "class_type"    => "melee"
+      "armor_type"    => "test",
+      "class_type"    => "test"
     }
   )
 end
@@ -44,20 +44,17 @@ end
     answer = last_response_json["answer"]
     response = post '/guess_skill', { guess: answer }, headers
     guess_skill_response = JSON.parse(response.body)
-    puts guess_skill_response
-
 
     expect(guess_skill_response["status"]).to eq("ok")
     expect(guess_skill_response["message"]).to eq("Correct!")
     expect(guess_skill_response["answer"]).to eq(answer)
   end
 
-  it "2) returns error on incorrect guess" do
+  it "2) returns error on incorrect guess with skill in Database" do
     get '/random_skill', {}, headers
     answer = last_response_json["answer"]
     response = post '/guess_skill', { guess: "Dragonfire Dive" }, headers
     guess_skill_response = json = JSON.parse(response.body)
-    puts guess_skill_response
 
     expect(guess_skill_response["status"]).to eq("error")
     expect(guess_skill_response["message"]).to eq("Incorrect! Try again.")
@@ -70,7 +67,6 @@ end
     answer = last_response_json["answer"]
     response = post '/guess_skill', { guess: "" }, headers
     guess_skill_response = JSON.parse(response.body)
-    puts guess_skill_response
 
     expect(guess_skill_response["status"]).to eq("error")
     expect(guess_skill_response["message"]).to eq("No guess provided")
@@ -81,14 +77,12 @@ end
     answer = last_response_json["answer"]
     response = post '/guess_skill', { guess: "DoesNotExist" }, headers
     guess_skill_response = JSON.parse(response.body)
-    puts guess_skill_response
 
     expect(guess_skill_response["status"]).to eq("error")
     expect(guess_skill_response["message"]).to eq("That skill does not exist!")
     expect(guess_skill_response["user_guess"]).to eq("DoesNotExist")
   end
 
-  # Helper to parse JSON safely
   def last_response_json
     JSON.parse(last_response.body)
   end
