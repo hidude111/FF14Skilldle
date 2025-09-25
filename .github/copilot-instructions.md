@@ -10,4 +10,4 @@
 ---
 
 ## Project Overview
-This is a Hello World project with a Ruby backend (Sinatra) and a Go frontend (web client).
+This is a Hello World project with a Ruby backend (Sinatra) and a React Router frontend (web client).

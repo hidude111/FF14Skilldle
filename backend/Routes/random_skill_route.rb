@@ -11,6 +11,7 @@ get '/random_skill' do
     session[:guesses] = 0
     session[:skill]   = skill
     session[:answer]  = skill["action_name"]
+    session[:previous_guesses] = []
 
 
     hints = build_hints(skill, session[:guesses])
