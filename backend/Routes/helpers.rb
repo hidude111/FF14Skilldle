@@ -4,7 +4,7 @@ enable :sessions
 
 module SkillHelpers
   def db_connection
-    PG.connect(dbname: 'ff14skills', user: 'hidude111', password: '123qwe', host: 'localhost')
+    PG.connect(dbname: 'dbname', user: 'username', password: 'password', host: 'localhost')
   end
 
   def get_random_skill
