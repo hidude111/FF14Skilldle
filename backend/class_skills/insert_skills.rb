@@ -3,7 +3,7 @@ require_relative './samurai_skills'
 
 
 def insert_skills(skills)
-  conn = PG.connect(dbname: 'ff14skills', user: 'hidude111', password: '123qwe', host: 'localhost')
+  conn = PG.connect(dbname: 'db_name', user: 'username', password: 'password', host: 'yourhost')
   skills.each do |skill|
     conn.exec_params(
       "INSERT INTO ff14skill_attributes (action_name, level_acquired, type_of_action, \"cast\", recast, mp_cost, radius, effect, class_name, image_url, armor_type, class_type) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)",
